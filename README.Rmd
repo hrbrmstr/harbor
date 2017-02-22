@@ -10,6 +10,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Tools to Manage 'Docker' Images and Containers
 
+TODO before CRAN:
+
+- <strike>run</strike>
+- <strike>pull</strike>
+- <strike>exec</strike>
+- commit
+- tag
+- build
+- push
+- stop
+- ps
+- rm
+- logs
+- <strike>images</strike>
+
 ```{r}
 library(harbor)
 

@@ -5,6 +5,21 @@ harbor
 
 Tools to Manage 'Docker' Images and Containers
 
+TODO before CRAN:
+
+-   <strike>run</strike>
+-   <strike>pull</strike>
+-   <strike>exec</strike>
+-   commit
+-   tag
+-   build
+-   push
+-   stop
+-   ps
+-   rm
+-   logs
+-   <strike>images</strike>
+
 ``` r
 library(harbor)
 
@@ -13,9 +28,8 @@ docker_pull(image="hello-world")
 
     ## Using default tag: latest
     ## latest: Pulling from library/hello-world
-    ## 78445dd45222: Already exists
     ## Digest: sha256:c5515758d4c5e1e838e9cd307f6c6a0d620b5e07e6f927b07d05f6d12a1ac8d7
-    ## Status: Downloaded newer image for hello-world:latest
+    ## Status: Image is up to date for hello-world:latest
 
 ``` r
 res <- docker_run(image = "hello-world", capture_text = TRUE)

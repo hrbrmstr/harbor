@@ -11,7 +11,6 @@ print.localhost <- function(x, ...) {
   cat("<localhost>")
 }
 
-
 #' @rdname docker_cmd
 #' @param text_from where to capture text from
 #' @export
@@ -26,25 +25,33 @@ docker_cmd.localhost <- function(host, cmd = NULL, args = NULL,
   # purrr::walk(args, message)
   # message("\n")
 
-  res <- sys::exec_internal(docker, args = args, error = TRUE)
+  res <- sys::exec_internal(docker, args = args, error = FALSE)
 
-  if (capture_text) {
-    if (text_from == "stderr") {
-      return(rawToChar(res$stderr))
-    } else if (text_from == "both") {
-      return(list(stdout=rawToChar(res$stdout), stderr=rawToChar(res$stderr)))
-    } else {
-      return(rawToChar(res$stdout))
-    }
+  if (res$status > 0) {
+    warning("Docker command failed")
+    cat(rawToChar(res$stdout))
+    cat(rawToChar(res$stderr))
   } else {
-    if (text_from == "stderr") {
-      message(rawToChar(res$stderr))
-    } else if (text_from == "both") {
-      message(rawToChar(res$stdout))
-      message(rawToChar(res$stderr))
+
+    if (capture_text) {
+      if (text_from == "stderr") {
+        return(rawToChar(res$stderr))
+      } else if (text_from == "both") {
+        return(list(stdout=rawToChar(res$stdout), stderr=rawToChar(res$stderr)))
+      } else {
+        return(rawToChar(res$stdout))
+      }
     } else {
-      message(rawToChar(res$stdout))
+      if (text_from == "stderr") {
+        message(rawToChar(res$stderr))
+      } else if (text_from == "both") {
+        message(rawToChar(res$stdout))
+        message(rawToChar(res$stderr))
+      } else {
+        message(rawToChar(res$stdout))
+      }
     }
+
   }
 
   invisible(host)

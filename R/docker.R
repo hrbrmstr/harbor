@@ -24,6 +24,34 @@ docker_cmd <- function(host = harbor::localhost, cmd = NULL, args = NULL,
   UseMethod("docker_cmd")
 }
 
+#' Run a command in a running container
+#'
+#' @md
+#' @param host docker host
+#' @param container container object or name
+#' @param command command to execute
+#' @param args args passed to the container
+#' @param docker_opts docker command options
+#' @param capture_text capture text of output?
+#' @param ... passed to [docker_cmd]
+#' @export
+docker_exec <- function(host = harbor::localhost, container=NULL, command = NULL,
+                        args = NULL, docker_opts = NULL, capture_text = TRUE, ...) {
+
+  if (is.null(container)) stop("Must specify a container")
+
+  if (is_container(container)) container <- container$name
+
+  args <- c(
+    docker_opts,
+    container,
+    command,
+    args
+  )
+
+  docker_cmd(host=host, cmd="exec", args=args, capture_text=capture_text, ...)
+
+}
 
 #' Pull a docker image onto a host.
 #'
@@ -35,10 +63,10 @@ docker_cmd <- function(host = harbor::localhost, cmd = NULL, args = NULL,
 #' }
 #' @return The \code{host} object.
 #' @export
-docker_pull <- function(host = harbor::localhost, image,
+docker_pull <- function(host = harbor::localhost, image=NULL,
                         docker_opts = NULL, capture_text = FALSE, ...) {
 
-  if (is.null(image)) stop("Must specify an image.")
+  if (is.null(image)) stop("Must specify an image string.")
 
   docker_cmd(host=host, cmd="pull", args=image,
              docker_opts=docker_opts,

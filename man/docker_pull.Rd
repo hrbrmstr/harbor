@@ -4,7 +4,7 @@
 \alias{docker_pull}
 \title{Pull a docker image onto a host.}
 \usage{
-docker_pull(host = harbor::localhost, image, docker_opts = NULL,
+docker_pull(host = harbor::localhost, image = NULL, docker_opts = NULL,
   capture_text = FALSE, ...)
 }
 \arguments{

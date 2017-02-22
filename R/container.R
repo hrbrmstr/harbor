@@ -137,3 +137,13 @@ container_stop <- function(container, seconds = 10) {
              c("stop", container$id, sprintf("--time=%s",seconds)),
              capture_text=TRUE, text_from="both")
 }
+
+
+#' Test to see if an object is a docker container object
+#'
+#' @param x object to test
+#' @return logical
+#' @export
+is_container <- function(x) {
+  "container" %in% class(x)
+}
