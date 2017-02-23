@@ -24,6 +24,30 @@ docker_cmd <- function(host = harbor::localhost, cmd = NULL, args = NULL,
   UseMethod("docker_cmd")
 }
 
+#' Create a target image that refers to a source image
+#'
+#' @md
+#' @param host docker host
+#' @param source_image source image object or name
+#' @param target_image target image name
+#' @param capture_text capture text of output?
+#' @export
+docker_tag <- function(host = harbor::localhost, source_image=NULL, target_image = NULL,
+                       capture_text = FALSE) {
+
+  if (is.null(source_image)) stop("Must specify a source image")
+
+  if (harbor::is_image(source_image)) source_image <- source_image$RepoTags[[1]]
+
+  args <- c(
+    source_image,
+    target_image
+  )
+
+  docker_cmd(host=host, cmd="tag", args=args, capture_text=capture_text)
+
+}
+
 #' Run a command in a running container
 #'
 #' @md

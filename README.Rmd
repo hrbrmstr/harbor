@@ -15,20 +15,20 @@ TODO before CRAN:
 - <strike>run</strike>
 - <strike>pull</strike>
 - <strike>exec</strike>
+- <strike>tag</strike>
 - commit
-- tag
 - build
 - push
-- stop
-- ps
-- rm
-- logs
+- <strike>stop</strike>
+- <strike>ps</strike>
+- <strike>rm</strike>
+- <strike>logs</strike>
 - <strike>images</strike>
 
 ```{r}
 library(harbor)
 
-docker_pull(image="hello-world")
+docker_pull(image = "hello-world")
 
 res <- docker_run(image = "hello-world", capture_text = TRUE)
 

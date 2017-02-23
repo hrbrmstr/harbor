@@ -93,7 +93,6 @@ container_running <- function(container) {
   container$info$State$Running
 }
 
-
 #' Delete a container.
 #'
 #' @inheritParams container_update_info
@@ -107,7 +106,6 @@ container_rm <- function(container, force = FALSE) {
   args <- c(if (force) "-f", container$id)
   docker_cmd(container$host, "rm", args)
 }
-
 
 #' Retrieve logs for a container.
 #'
@@ -137,7 +135,6 @@ container_stop <- function(container, seconds = 10) {
              c("stop", container$id, sprintf("--time=%s",seconds)),
              capture_text=TRUE, text_from="both")
 }
-
 
 #' Test to see if an object is a docker container object
 #'

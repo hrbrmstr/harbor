@@ -61,3 +61,16 @@ image_rm <- function(x, force = FALSE) {
   args <- c(if (force) "-f", substr(x$Id, 8, 8+11))
   docker_cmd(x$host, "rmi", args)
 }
+
+#' @rdname image_rm
+#' @export
+image_rmi <- image_rm
+
+#' Test to see if an object is a docker image object
+#'
+#' @param x object to test
+#' @return logical
+#' @export
+is_image <- function(x) {
+  "image" %in% class(x)
+}
