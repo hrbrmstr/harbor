@@ -33,4 +33,10 @@ docker_pull(image = "hello-world")
 res <- docker_run(image = "hello-world", capture_text = TRUE)
 
 cat(attr(res, "output"))
+
+as.data.frame(containers())
+
+container_rm(containers()[[1]])
+
+containers()
 ```

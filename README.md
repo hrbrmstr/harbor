@@ -10,20 +10,20 @@ TODO before CRAN:
 -   <strike>run</strike>
 -   <strike>pull</strike>
 -   <strike>exec</strike>
+-   <strike>tag</strike>
 -   commit
--   tag
 -   build
 -   push
--   stop
--   ps
--   rm
--   logs
+-   <strike>stop</strike>
+-   <strike>ps</strike>
+-   <strike>rm</strike>
+-   <strike>logs</strike>
 -   <strike>images</strike>
 
 ``` r
 library(harbor)
 
-docker_pull(image="hello-world")
+docker_pull(image = "hello-world")
 ```
 
     ## Using default tag: latest
@@ -57,3 +57,22 @@ cat(attr(res, "output"))
     ## 
     ## For more examples and ideas, visit:
     ##  https://docs.docker.com/engine/userguide/
+
+``` r
+as.data.frame(containers())
+```
+
+    ##            name       image                        created status
+    ## 1 harbor_9wecd6 hello-world 2017-02-23T20:24:42.572903107Z exited
+
+``` r
+container_rm(containers()[[1]])
+```
+
+    ## e764f80d0a18
+
+``` r
+containers()
+```
+
+    ## No containers found
